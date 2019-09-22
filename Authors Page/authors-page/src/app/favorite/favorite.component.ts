@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-favorite',
@@ -10,6 +10,9 @@ export class FavoriteComponent implements OnInit {
   selected = "fa fa-star";
   notSelected = "fa fa-star-o";
 
+  @Input() isFavorite: boolean;
+  @Output('change') change = new EventEmitter();
+
   text: string;
 
   current = this.selected;
@@ -17,10 +20,15 @@ export class FavoriteComponent implements OnInit {
   onClick () {
     if (this.current == this.selected){
       this.current = this.notSelected;
+      this.isFavorite = false;
     } else if (this.current == this.notSelected){
       this.current = this.selected;
+      this.isFavorite = true;
     }
+
+    this.change.emit({ newValue: this.isFavorite });
   }
+  
 
   onKeyUp() {
 
@@ -30,5 +38,10 @@ export class FavoriteComponent implements OnInit {
 
   ngOnInit() {
   }
+  
 
+}
+
+export interface FavoriteChangedEventArgs {
+  newValue: boolean;
 }
