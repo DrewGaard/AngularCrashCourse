@@ -1,0 +1,5 @@
+<i class="{{ current }}" (click)="onClick()" aria-hidden="true"></i>
+
+<input [(ngModel)]="text" (keyup.enter) = "onKeyUp()" />
+
+{{ text | title }}
